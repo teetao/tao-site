@@ -1,0 +1,158 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+div.game-link {
+    font-family: monospace;
+}
+
+a.ios {
+    width: 25px;
+    height: 25px;
+    background: url('../img/icon/ios.png') 0px 0px no-repeat;
+    background-size: 25px 25px;
+}
+
+.game-icon {
+    float: left;
+    padding: 5px;
+}
+
+
+
+body {
+    background: url(../img/bg_e.png);
+    font-family: "Proxima Nova Regular","Helvetica Neue",Arial,Helvetica,sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    padding-top: 60px !important;
+}
+
+.node {
+    background: none repeat scroll 0 0 #FFFFFF;
+    -webkit-box-shadow: 0 1px 15px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 1px 15px rgba(0, 0, 0, 0.07);
+    margin-bottom: 40px;
+}
+
+.node .inner {
+    padding: 20px 20px 5px 20px;
+}
+
+.navbar-inner {
+    background: #41B7D8 !important;
+    border-bottom: 1px solid #8B8989;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar .nav li {
+    line-height: inherit;
+}
+
+.navbar .nav li a {
+    font-weight: 700;
+    color: #fff;
+    text-shadow: inherit;
+    padding: 12px 15px;
+}
+
+.navbar .nav .active a,
+.navbar .nav .active a:hover,
+.navbar .nav .active a:focus {
+    background: #41B7D8 ;
+    color: #fff;
+}
+
+.navbar .nav li a,
+.navbar .nav li a:hover,
+.navbar .nav li a:focus {
+    color: #fff;
+}
+
+.navbar .nav ul.dropdown-menu li a {
+    background: #fff;
+    color: #666;
+    font-weight: normal;
+}
+
+.navbar .nav ul.dropdown-menu li a {
+    color: #666;
+    text-align: left;
+}
+
+.navbar .nav ul.dropdown-menu li a:hover {
+    color: #fff;
+    background: #41B7D8;
+    text-align: left;
+}
+
+
+.node h2 {
+    background: none repeat scroll 0 0 #41B7D8 !important;
+    color: #FFFFFF !important;
+    font-size: 15.5px;
+    margin: -20px -20px 20px -20px;
+}
+
+.node h2 a {
+    color: #FFFFFF !important;
+    padding: 20px;
+}
+
+.dropdown .caret {
+    border-top: 4px solid #FFFFFF;
+    margin-top: 14px;
+}
+
+#logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1#logo-default, h1#logo-default a {
+    color: #FFFFFF;
+    float: left;
+    font-family: lobster;
+    font-size: 31px;
+    font-weight: bold;
+    line-height: 18px;
+    margin: 7px 10px 10px 0;
+}
+
+h1#logo-default i {
+    color: #E53B2C;
+}
+
+#strapline {
+    background: none repeat scroll 0 0 #FFFFFF;
+    box-shadow: 0 1px 15px rgba(0, 0, 0, 0.07);
+    color: #666666;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 34px;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    padding: 20px;
+    text-align: center;
+}
+
+
+
+body {
+    background: url(../img/bg_e.png);
+    font-family: "Proxima Nova Regular","Helvetica Neue",Arial,Helvetica,sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    padding-top: 60px !important;
+}
