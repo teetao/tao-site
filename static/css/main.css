@@ -58,6 +58,8 @@ body {
 }
 
 .navbar .nav li a {
+    /*font-family: "Bebas Neue";*/
+
     font-weight: 700;
     color: #fff;
     text-shadow: inherit;
