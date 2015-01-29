@@ -1,0 +1,31 @@
+@page {
+  size: auto;   /* auto is the current printer page size */
+  margin: 0mm;  /* this affects the margin in the printer settings */
+}
+
+body {
+  /*background-color: #FFFFFF;*/
+  border: solid 1px black;
+  margin: 0px; /* the margin on the content before printing */
+}
+
+
+.preview {
+  zoom: 1;
+}
+
+.preview-moz {
+  -moz-transform: scale(1);
+  -moz-transform-origin: 0 0;
+}
+
+
+.cert_text {
+  position: absolute;
+  left: 50%;
+  text-align: center;
+  -webkit-transform: translate(-50%, 0)
+  -moz-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
