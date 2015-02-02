@@ -3,15 +3,18 @@
   height: 60px;
   font-size: 22px;
   border-bottom: 1px solid #000000;
+
 }
 
 .navbar-brand {
   font-size: 24px;
+  color: lightcyan;
 }
 
 .navbar .nav li a:hover {
   background: lightblue ;
 }
+
 
 
 
