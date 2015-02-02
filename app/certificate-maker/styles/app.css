@@ -1,3 +1,17 @@
+.navbar {
+  background: #41B7D8 ;
+  height: 60px;
+  font-size: 22px;
+  border-bottom: 1px solid #000000;
+}
+
+.navbar-brand {
+  font-size: 24px;
+}
+
+.navbar .nav li a:hover {
+  background: lightblue ;
+}
 
 
 

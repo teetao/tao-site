@@ -16,7 +16,8 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
   <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.js"></script>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
 
 
   <script src="scripts/app.js"></script>
@@ -51,24 +52,31 @@
 <![endif]-->
 
 
-<div class="container" ng-controller="appCtrl">
-  <div class="header">
-    <ul class="nav nav-pills pull-right">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-    <h3 class="text-muted">Certificate Maker </h3>
+<!-- navbar -->
+<nav class="navbar navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Teetao</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li ><a href="/">Games</a></li>
+        <li class="active"><a href="#">Apps</a></li>
+      </ul>
+    </div>
   </div>
+</nav>
 
+
+<div class="container" ng-controller="appCtrl">
 
   <div id="content" class=" row">
-    <div id="left-pane" class="panel form">
+    <div id="left-pane" class="panel form  ">
       <div class="form-group" ng-repeat="key in keys">
         {{field = cert[key];""}}
         <!--<label class="col-xs-2 control-label">{{key}}</label>-->
 
-        <div class="input-group col-md-8">
+        <div class="input-group col-md-6">
 
           <input type="text"
                  ng-model="field.txt"
@@ -94,7 +102,7 @@
     </div>
 
 
-    <div id="preview" class="preview preview-moz" style=" position: relative;">
+    <div id="preview" class="preview preview-moz" style=" position: relative;" >
       <img src="template/1/bg.png">
           <span ng-repeat="field in cert"
                 xng-style="{'position': 'absolute','left': '{{field.x ? field.x : cert_width/2}}px' ,'top': '{{field.y}}px'}"
@@ -117,7 +125,7 @@
 
 
 <div class="footer">
-  <p><span class="glyphicon glyphicon-heart"></span> from the Certificate Maker </p>
+  <!--<p><span class="glyphicon glyphicon-heart"></span> from the Certificate Maker </p>-->
 </div>
 
 
