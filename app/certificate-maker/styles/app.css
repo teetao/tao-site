@@ -1,5 +1,5 @@
 .navbar {
-  background: #41B7D8 ;
+  background: #41B7D8;
   height: 60px;
   font-size: 22px;
   border-bottom: 1px solid #000000;
@@ -12,11 +12,18 @@
 }
 
 .navbar .nav li a:hover {
-  background: lightblue ;
+  background: lightblue;
 }
 
+body {
+  padding-top: 70px;
+}
 
+.container {
 
+  max-width: 970px;
+
+}
 
 .preview {
   zoom: 0.5;
@@ -27,13 +34,11 @@
   -moz-transform-origin: 0 0;
 }
 
-
 .cert_text {
   position: absolute;
   left: 50%;
   text-align: center;
-  -webkit-transform: translate(-50%, 0)
-  -moz-transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0) -moz-transform : translate(- 50 %, 0);
   -ms-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
 }

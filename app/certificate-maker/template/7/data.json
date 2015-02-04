@@ -1,0 +1,42 @@
+{
+  "title": {
+    "y": 287,
+    "font_size": 68,
+    "font_family": "helvetica",
+    "font_style": "normal",
+    "txt": "Certificate of Achievement",
+    "x": 561.5
+  },
+  "action": {
+    "y": 373,
+    "font_size": 38,
+    "font_family": "times",
+    "font_style": "italic",
+    "txt": "presented to",
+    "x": 561.5
+  },
+  "recipient": {
+    "y": 434,
+    "font_size": 58,
+    "font_family": "times",
+    "font_style": "bold",
+    "txt": "Recipient Name",
+    "x": 561.5
+  },
+  "reason": {
+    "y": 530,
+    "font_size": 41,
+    "font_style": "normal",
+    "txt": "for outstanding improvement",
+    "x": 561.5,
+    "font_family": "times"
+  },
+  "date": {
+    "y": 600,
+    "font_size": 36,
+    "font_family": "times",
+    "font_style": "bolditalic",
+    "txt": "19 January 2015",
+    "x": 561.5
+  }
+}

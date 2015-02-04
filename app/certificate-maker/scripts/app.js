@@ -1,14 +1,23 @@
-var app = angular.module('app', ['ui.bootstrap']);
+var app = angular.module('app', ['ui.bootstrap', 'angular-growl']);
 
-app.controller('appCtrl',  ['$scope', '$http', function ($scope, $http) {
+
+app.controller('appCtrl', ['$scope', '$http', '$location', 'growl', function ($scope, $http, $location, growl) {
 
   // A4 width/height in 'mm'
   //$scope.cert_width = 148.5;
   //$scope.cert_height = 105;
 
   $scope.cert_width = 1123;
-  $scope.cert_height = 792;
+  $scope.cert_height = 794;
   $scope.prev_factor = 0.5;
+  $scope.selected_template_id = 1;
+
+  var templateId = $location.path().replace(/[^0-9]/g, '');
+  console.info("path: " + $location.path() + ", id: " + templateId);
+  if (templateId) {
+    $scope.selected_template_id = templateId;
+  }
+
 
   var fontFamilies = ['times', 'helvetica'];  // 'courier' has spacing problem with PDF.
 
@@ -20,6 +29,7 @@ app.controller('appCtrl',  ['$scope', '$http', function ($scope, $http) {
       var field = data[key];
 
       if (!field.x) {
+
         field.x = $scope.cert_width / 2;
       }
 
@@ -36,17 +46,42 @@ app.controller('appCtrl',  ['$scope', '$http', function ($scope, $http) {
     return data;
   }
 
-  var certUrl = 'template/1/';
-
-  $http.get(certUrl + 'data.json').success(function (data) {
-
-    $scope.cert = processData(data);
+  $scope.showCounter = function () {
+    console.info(". ");
+  };
 
 
-    console.log("data: " + JSON.stringify(data));
-  });
+  $scope.status = {
+    isopen: false
+  };
 
-  $scope.abc = 'def';
+
+  $scope.toggleDropdown = function ($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope.status.isopen = !$scope.status.isopen;
+  };
+
+
+  $scope.getTemplateBaseUrl = function () {
+    return 'template/' + $scope.selected_template_id;
+  };
+
+  $scope.selectTemplate = function (id) {
+    $scope.selected_template_id = id;
+
+    refreshData();
+  };
+
+  function refreshData() {
+    $http.get($scope.getTemplateBaseUrl() + '/data.json').success(function (data) {
+
+      $scope.cert = processData(data);
+      console.log("data: " + JSON.stringify(data));
+    });
+  };
+
+  refreshData();
 
 
   $scope.keys = ["title", "action", "recipient", "reason", "date"];
@@ -54,7 +89,7 @@ app.controller('appCtrl',  ['$scope', '$http', function ($scope, $http) {
   function px2pt(v) {
     var k = 72 / 96;
     return v * k;
-   //case 'px':  k = 96 / 72;    break; 1.33333333
+    //case 'px':  k = 96 / 72;    break; 1.33333333
 
     //var px2pt = 0.264583 * 72 / 25.4;
     //return v * px2pt;
@@ -74,7 +109,7 @@ app.controller('appCtrl',  ['$scope', '$http', function ($scope, $http) {
 
   }
 
-  function calcYfromTopForPdf(y,  font_size) {
+  function calcYfromTopForPdf(y, font_size) {
 
     var font_factor = 0.75;
     var res = (y + ( (1 ) * (font_size * font_factor)));
@@ -83,38 +118,67 @@ app.controller('appCtrl',  ['$scope', '$http', function ($scope, $http) {
 
   }
 
-  $scope.makePdf = function () {
+  $scope.test = function () {
+    testMakeAllPdf();
+  };
+
+  function testMakeAllPdf() {
+    for (var i = 1; i < 10; i++) {
+      (function (templateId) {
+        $http.get("template/" + templateId + '/data.json').success(function (data) {
+
+          var db = processData(data);
+          $scope.makePdf(templateId, db);
+
+          console.log("data: " + JSON.stringify(data));
+        });
+      })(i);
+    }
+  }
+
+
+  $scope.makePdf = function (templateId, certDb) {
 
     console.info("preview clicked, cert: " + JSON.stringify($scope.cert));
 
-    $http.get(certUrl + 'bg.b64').success(function (data) {
+    growl.info('Generating Pdf....', {ttl: 2000});
 
-      var bg_base64 = data;
-      var docPt = new jsPDF("landscape", "pt", "a4");
+    (function (templateId, certDb) {
+      $http.get("template/" + templateId + '/bg.b64').success(function (data) {
+
+        var bg_base64 = data;
+        var docPt = new jsPDF("landscape", "pt", "a4");
+
+        try {
+          docPt.addImage(bg_base64, 0, 0, 0, 0);
+
+          for (var key in certDb) {
+            var field = certDb[key];
+
+            x_pt = px2pt(field.x);
+            y_pt = px2pt(field.y);
+            size_pt = px2pt(field.font_size);
+
+            var x = calcXfromCenterForPdf(x_pt, field.txt, field.font_size);
+            var y = calcYfromTopForPdf(y_pt, field.font_size);
+            docPt.setFontSize(size_pt);
+            docPt.setFont(field.font_family, field.font_style);
+            docPt.text(x, y, field.txt);
+
+          }
 
 
-      docPt.addImage(bg_base64, 0, 0, 0, 0);
+          docPt.save('certificate-' + templateId + '.pdf');
+        } catch (e) {
+          console.log('' + e);
+          growl.error('' + e, {ttl: 3000});
 
-      for (var key in $scope.cert) {
-        var field = $scope.cert[key];
+        }
+        //makePdf_px($scope.cert, bg_base64);
+        //docPx.save('cert-px.pdf');
+      })
+    })(templateId, certDb);
 
-        x_pt = px2pt(field.x);
-        y_pt = px2pt(field.y);
-        size_pt = px2pt(field.font_size);
-
-        var x = calcXfromCenterForPdf(x_pt, field.txt, field.font_size);
-        var y = calcYfromTopForPdf(y_pt, field.font_size);
-        docPt.setFontSize(size_pt);
-        docPt.setFont(field.font_family, field.font_style);
-        docPt.text(x, y, field.txt);
-
-      }
-
-
-      docPt.save('cert-pt.pdf');
-      //makePdf_px($scope.cert, bg_base64);
-      //docPx.save('cert-px.pdf');
-    });
   };
 
   function makePdf_px(cert, bg_base64) {
@@ -164,10 +228,11 @@ app.controller('appCtrl',  ['$scope', '$http', function ($scope, $http) {
 
   };
 
-  $scope.outerStyle = function(field) {
-    return {'position': 'absolute',
-      'left': (field.x ? field.x : cert_width/2) + 'px'
-      ,'top': field.y +'px'
+  $scope.outerStyle = function (field) {
+    return {
+      'position': 'absolute',
+      'left': (field.x ? field.x : cert_width / 2) + 'px'
+      , 'top': field.y + 'px'
     }
   };
 
@@ -176,7 +241,7 @@ app.controller('appCtrl',  ['$scope', '$http', function ($scope, $http) {
       'font-family': field.font_family,
       'font-style': field.font_style,
       'font-size': field.font_size + 'px'
-      , 'width': $scope.cert_width +'px'
+      , 'width': $scope.cert_width + 'px'
     }
   };
 
