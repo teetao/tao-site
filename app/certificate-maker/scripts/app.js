@@ -245,6 +245,13 @@ app.controller('appCtrl', ['$scope', '$http', '$location', 'growl', function ($s
     }
   };
 
+  $scope.updateField = function(name, x, y) {
+    console.info('update field: ' + name + " x, " + x + ", y:" + y);
+
+    $scope.cert[name].x = x;
+    $scope.cert[name].y = y;
+
+  };
 
   $scope.incFontSize = function (field) {
     field.font_size += 1;
@@ -277,3 +284,35 @@ app.controller('appCtrl', ['$scope', '$http', '$location', 'growl', function ($s
 
 }])
 ;
+
+
+
+//  http://stackoverflow.com/questions/6230834/html5-drag-and-drop-anywhere-on-the-screen
+
+function drag_start(event, field) {
+
+  console.info('field: ' + field);
+  var style = window.getComputedStyle(event.target, null);
+  var str = (parseInt(style.getPropertyValue("left")) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top")) - event.clientY) + ',' + event.target.id;
+  event.dataTransfer.setData("Text", str);
+}
+
+function drop(event) {
+  var offset = event.dataTransfer.getData("Text").split(',');
+  var dm = document.getElementById(offset[2]);
+
+  var x = event.clientX + parseInt(offset[0], 10);
+  var y = (event.clientY + parseInt(offset[1], 10));
+  dm.style.left = x + 'px';
+  dm.style.top = y + 'px';
+  angular.element(event.srcElement).scope().updateField(event.srcElement.id, x, y);
+  //angular.element(event.srcElement).scope().selected_template_id
+
+  event.preventDefault();
+  return false;
+}
+
+function drag_over(event) {
+  event.preventDefault();
+  return false;
+}
