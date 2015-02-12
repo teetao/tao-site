@@ -1,0 +1,23 @@
+.preview {
+  zoom: 0.5;
+}
+
+.preview-moz {
+  -moz-transform: scale(0.5);
+  -moz-transform-origin: 0 0;
+}
+
+.cert_text {
+  position: absolute;
+  left: 50%;
+  text-align: center;
+  -webkit-transform: translate(-50%, 0) -moz-transform : translate(- 50 %, 0);
+  -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
+
+.cert_text:hover {
+  color: blue;
+  cursor: all-scroll;
+
+}

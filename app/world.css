@@ -1,0 +1,24 @@
+.navbar {
+  background: #41B7D8;
+  height: 60px;
+  font-size: 18px;
+  border-bottom: 1px solid #000000;
+
+}
+
+.navbar-brand {
+  font-size: 16px;
+  color: lightcyan;
+}
+
+.navbar .nav li a:hover {
+  background: lightblue;
+}
+
+body {
+  padding-top: 70px;
+}
+
+.container {
+  max-width: 970px;
+}
